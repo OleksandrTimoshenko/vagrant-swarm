@@ -31,16 +31,12 @@
         advertise_addr: "10.2.2.25"
     - name: Copy file with owner and permissions
       copy:
-        src: docker-compose.yml
-        dest: /opt/docker-compose.yml
-    - name: Remove stack
-      docker_stack:
-        name: demo
-        state: absent
+        src: service.yml
+        dest: /opt/service.yml
     - name: Deploy stack from a compose file
       docker_stack:
         state: present
         prune: yes
         name: hello-stack
         compose:
-          - /opt/docker-compose.yml
+          - /opt/service.yml
