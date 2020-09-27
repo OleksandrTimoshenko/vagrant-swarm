@@ -2,6 +2,6 @@ version: "3.7"
 
 services:
   web:
-    image: tutum/hello-world
+    image: ghcr.io/kharandziuk/nginx:1.0
     ports:
-      - 5000:80
+      - 1337:80
