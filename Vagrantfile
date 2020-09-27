@@ -8,6 +8,9 @@ Vagrant.configure("2") do |config|
     machine.vm.provision :ansible do |ansible|
       ansible.playbook = "playbook.yml"
       ansible.verbose = 'vv'
+      ansible.extra_vars = {
+        github_token: ENV["PTA"]
+      }
     end
   end
 end

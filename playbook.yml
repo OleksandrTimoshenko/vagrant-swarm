@@ -29,14 +29,23 @@
       docker_swarm:
         state: present
         advertise_addr: "10.2.2.25"
+
+    - name: Log into DockerHub
+      community.general.docker_login:
+        username: kharandziuk
+        password: "{{ github_token }}"
+        url: ghcr.io
+
     - name: Copy file with owner and permissions
       copy:
         src: service.yml
         dest: /opt/service.yml
+
     - name: Deploy stack from a compose file
       docker_stack:
         state: present
         prune: yes
         name: hello-stack
+        with_registry_auth: yes
         compose:
           - /opt/service.yml
