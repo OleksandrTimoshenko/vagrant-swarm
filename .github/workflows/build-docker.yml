@@ -1,0 +1,18 @@
+on:
+  workflow_dispatch:
+
+jobs:
+  build-nginx:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: nginx
+
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          IMAGE_NAME="ghcr.io/kharandziuk/nginx:1.0"
+          echo "${{ secrets.token }}" | docker login ghcr.io -u ${GITHUB_ACTOR} --password-stdin
+          docker build -t $IMAGE_NAME .
+          docker push $IMAGE_NAME
